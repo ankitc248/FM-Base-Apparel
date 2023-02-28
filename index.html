@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+
+  <link rel="stylesheet/less" type="text/css" href="styles.less" />
+  <script src="https://cdn.jsdelivr.net/npm/less"></script>
+  <title>Frontend Mentor | Base Apparel coming soon page</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+  </style>
+</head>
+
+<body>
+  <main>
+    
+    <header id="mobileHeader"><img src="./images/logo.svg" alt="logo" width="125" height="25" /></header>
+    <section class="left-section">
+    <header id="desktopHeader"><img src="./images/logo.svg" alt="logo" width="150" height="30" /></header>
+      <div class="text-section">
+        <header>
+          <h1 class="title pink-title">We're </h1>
+          <h1 class="title black-title">coming soon</h1>
+        </header>
+        <p>
+          Hello fellow shoppers! We're currently building our new fashion store.
+          Add your email below to stay up-to-date with announcements and our launch deals.
+        </p>
+        <div class="email-container">
+          <input type="email" id="email" name="email" placeholder="Email Address" required />
+          <img class="error-icon" alt="error-icon" src="./images/icon-error.svg" width="22" height="22" />
+          <button type="button" id="submitBtn"><img src="./images/icon-arrow.svg" alt="arrow" /></button>
+        </div>
+        <span class="response-bar" id="responseBar"></span>
+      </div>
+    </section>
+    <section class="right-section">
+    </section>
+  </main>
+</body>
+<script>
+  const emailInput = document.getElementById('email');
+  const responseBar = document.getElementById('responseBar');
+  const errorIcon = document.getElementsByClassName('error-icon')[0];
+  const submitBtn = document.getElementById('submitBtn');
+  submitBtn.addEventListener('click', function () {
+    let email = emailInput.value;
+    let validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (email.match(validRegex)) {
+      responseBar.className = 'response-bar success-bar';
+      responseBar.innerText = "We'll email you when we are live";
+      emailInput.className = '';
+      emailInput.value='';
+      errorIcon.style.opacity = 0;
+    } else {
+      responseBar.className = 'response-bar error-bar';
+      responseBar.innerText = 'Please provide a valid email';
+      emailInput.className = 'error-email';
+      errorIcon.style.opacity = 1;
+    }
+  })
+
+  emailInput.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      submitBtn.click();
+    }
+  });
+
+  window.addEventListener('click',function (event) {
+    event.preventDefault();
+    if(event.target!=submitBtn){
+    responseBar.className = 'response-bar';
+      responseBar.innerText = "";
+      emailInput.className = '';
+      errorIcon.style.opacity = 0;
+    }
+  })
+</script>
+
+</html>
